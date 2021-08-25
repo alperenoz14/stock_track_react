@@ -89,7 +89,8 @@ export default function PlantDetail() {
                                     <TableCell>Product Name</TableCell>
                                     <TableCell>Unit Price</TableCell>
                                     <TableCell>Delivery Date</TableCell>
-                                    <TableCell>DeliveryMan</TableCell>
+                                    <TableCell>Delivery Company</TableCell>
+                                    <TableCell>Delivery State</TableCell>
                                     <TableCell>EDIT</TableCell>
                                     <TableCell>DELETE</TableCell>
                                 </TableRow>
@@ -102,6 +103,7 @@ export default function PlantDetail() {
                                             <TableCell>{data.lastname}</TableCell>
                                             <TableCell>{data.id}</TableCell>
                                             <TableCell>{data.number}</TableCell>
+                                            <TableCell>on Road</TableCell>
                                             <TableCell><Button href={`/Edit/${data.id}`} style={{ backgroundColor: '#E7E41E' }}>EDIT</Button></TableCell>
                                             <TableCell><Button style={{ backgroundColor: '#F1320B' }}>DELETE</Button></TableCell>
                                         </TableRow>
@@ -120,7 +122,7 @@ export default function PlantDetail() {
                         onRowsPerPageChange={handleChangeRowsPerPage}
                     />
                 </div>
-                <Button href="/Add" style={{backgroundColor:'#4BD025',width:'150px',height:'50px'}}>Add New Product</Button>
+                <Button href="/Add" style={{backgroundColor:'#4BD025',width:'150px',height:'50px'}}>Add New Product to Plant</Button>
             </Paper>
         </Grid>
 

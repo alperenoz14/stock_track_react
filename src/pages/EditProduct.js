@@ -10,6 +10,10 @@ const EditProduct = () => {
     const param = useParams()
     console.log(param)
 
+   const handleInput = (e) =>{       
+        console.log(e.target.textContent)
+    }
+
     const top100Films = [
         { title: 'The Shawshank Redemption', year: 1994 },
         { title: 'The Godfather', year: 1972 },
@@ -20,7 +24,7 @@ const EditProduct = () => {
         <Grid item xs={9} style={{ marginLeft: '170px' }}>
             <h1>STOCK TRACK</h1>
             <Paper elevation={10} style={{ padding: 20, height: 'auto', width: 'auto' }} >
-                <div style={{ height: 500, width: '100%' }}>
+                <div style={{ height: 600, width: '100%' }}>
                     <Typography variant="h6" gutterBottom>
                         Edit Product İnformations
                     </Typography>
@@ -34,10 +38,10 @@ const EditProduct = () => {
                                         id="combo-box-demo"
                                         options={top100Films}
                                         getOptionLabel={(option) => option.title}
-                                        onInputChange={e=>console.log(e)}
+                                        onChange={e=> handleInput(e)}
+                                        defaultValue={{title:'alperen', year:1999}}     //current product Name
                                         style={{ width: 300 }}
-                                        searchText='asd'
-                                        renderInput={(params) => <TextField {...params} value='asdasd' required label="Select Product" variant="outlined" />}
+                                        renderInput={(params) => <TextField {...params} required label="Select Product" variant="outlined" />}
                                     />
                                 </Grid>
                             </Grid>
@@ -62,7 +66,6 @@ const EditProduct = () => {
                             <Grid container spacing={3}>
                                 <Grid item xs={7}>
                                     <TextField
-                                        required
                                         id="deliverydate"
                                         name="deliverydate"
                                         label="Delivery Date"
@@ -77,9 +80,25 @@ const EditProduct = () => {
                                 <Grid item xs={7}>
                                     <TextField
                                         required
-                                        id="deliveryMan"
-                                        name="Delivery Man"
-                                        label="Delivery Man"
+                                        id="deliveryCompany"
+                                        name="Delivery Company"
+                                        label="Delivery Company"
+                                        fullWidth
+                                        autoComplete=""
+                                        placeholder='Test'
+                                        variant='filled'
+                                    />
+                                </Grid>
+                            </Grid>
+                            <br></br>
+                            <br></br>
+                            <Grid container spacing={3}>
+                                <Grid item xs={7}>
+                                    <TextField
+                                        required
+                                        id="deliveryState"
+                                        name="Delivery State"
+                                        label="Delivery State"
                                         fullWidth
                                         autoComplete=""
                                         placeholder='Test'

@@ -3,6 +3,7 @@ import PlantTable from './components/PlantTable';
 import PlantDetail from './pages/PlantDetail'
 import EditProduct from './pages/EditProduct'
 import AddProduct from './pages/AddProduct'
+import AddDefaultProduct from './pages/AddDefaultProduct'
 import { Button, FormControlLabel, IconButton } from "@material-ui/core";
 import {BrowserRouter as Router,Link, Route} from 'react-router-dom'
 
@@ -72,6 +73,7 @@ const App = () => {
       <Route exact path="/PlantDetail/:id" component={() => <PlantDetail/>}/>
       <Route exact path="/Edit/:productId" component={() => <EditProduct/>}/>
       <Route exact path="/Add" component={() => <AddProduct/>}/>
+      <Route exact path="/AddDefaultProduct" component={() => <AddDefaultProduct/>}/>
     </div>
   );
 }
