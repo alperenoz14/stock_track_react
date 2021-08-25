@@ -1,23 +1,72 @@
-import logo from './logo.svg';
 import './App.css';
+import PlantTable from './components/PlantTable';
+import PlantDetail from './pages/PlantDetail'
+import { Button, FormControlLabel, IconButton } from "@material-ui/core";
+import {BrowserRouter as Router,Link, Route} from 'react-router-dom'
 
-function App() {
+const columns = [
+  { field: 'id', headerName: 'ID', width: 120 },
+  { field: 'name', headerName: 'Plant Name', width: 230, },
+  { field: 'eic', headerName: 'EIC', width: 170, },
+  { field: 'organizationETSOCode', width: 200, headerName: 'Organization ETSO', },
+  {
+    field: 'plantDetail',
+    headerName: 'Plant Detail',
+    width: 200,
+    editable: false,
+    sortable: false,
+    disableClickEventBubbling: true,
+    renderCell: (params) => {
+      return (
+        <div
+          className="d-flex justify-content-between align-items-center"
+          style={{ cursor: "pointer", marginLeft: '25px' }}
+        >
+          {Detail(params.row.id)}
+        </div>
+      );
+    }
+  },
+]
+
+const rows = [
+  {
+    id:'123',
+    name:'test',
+    eic:'xxx',
+    organizationETSOCode:'132145'
+  },
+  {
+    id:'222',
+    name:'asd',
+    eic:'sddfg',
+    organizationETSOCode:'8654'
+  },
+  {
+    id:'123',
+    name:'test',
+    eic:'xxx',
+    organizationETSOCode:'132145'
+  }
+]
+
+const Detail = (index) => {
+  const handleEditClick = () => {
+    this.setState({ index })
+  };
+
+  return (
+<Router>
+  <Button style={{backgroundColor:'lightgreen'}} onClick={() =><Route path='/PlantDetail' component={PlantDetail}/>}>asdasd</Button>
+</Router>
+
+  );
+};
+
+const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <PlantTable rows = {rows} columns = {columns}/>
     </div>
   );
 }
