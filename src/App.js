@@ -56,9 +56,9 @@ const Detail = (index) => {
   };
 
   return (
-<Router>
-  <Button style={{backgroundColor:'lightgreen'}} onClick={() =><Route path='/PlantDetail' component={PlantDetail}/>}>asdasd</Button>
-</Router>
+
+  <Button href={`/PlantDetail/${index}`} style={{backgroundColor:'lightgreen'}}>Plant Detail</Button>
+
 
   );
 };
@@ -66,7 +66,8 @@ const Detail = (index) => {
 const App = () => {
   return (
     <div className="App">
-      <PlantTable rows = {rows} columns = {columns}/>
+      <Route exact path="/" component={() => <PlantTable rows = {rows} columns = {columns}/>}/>
+      <Route exact path="/PlantDetail/:id" component={() => <PlantDetail/>}/>
     </div>
   );
 }
