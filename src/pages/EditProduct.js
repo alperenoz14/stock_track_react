@@ -56,7 +56,7 @@ const EditProduct = () => {
                                         label="Unit Price"
                                         fullWidth
                                         autoComplete=""
-                                        placeholder='1500.00'
+                                        placeholder='Test'
                                         variant='filled'
                                     />
                                 </Grid>

@@ -15,6 +15,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import { useEffect } from 'react';
 
 
 
@@ -62,6 +63,10 @@ export default function PlantDetail() {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
+
+    useEffect(() => {
+        console.log('rendered')
+    }, [])
 
     return (
 

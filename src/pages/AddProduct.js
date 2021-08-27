@@ -23,7 +23,7 @@ const AddProduct = () => {
             <Paper elevation={10} style={{ padding: 20, height: 'auto', width: 'auto' }} >
                 <div style={{ height: 500, width: '100%' }}>
                     <Typography variant="h6" gutterBottom>
-                        Add New Product
+                        Add New Order
                     </Typography>
                     <br></br>
                     <form>
@@ -47,9 +47,24 @@ const AddProduct = () => {
                                 <Grid item xs={7}>
                                     <TextField
                                         required
-                                        id="unitPrice"
-                                        name="Unit Price"
-                                        label="Unit Price"
+                                        id="deliveryCompany"
+                                        name="Delivery Company"
+                                        label="Delivery Company"
+                                        fullWidth
+                                        autoComplete=""
+                                        variant='filled'
+                                    />
+                                </Grid>
+                            </Grid>
+                            <br></br>
+                            <br></br>
+                            <Grid container spacing={3}>
+                                <Grid item xs={7}>
+                                    <TextField
+                                        required
+                                        id="deliveryState"
+                                        name="Delivery State"
+                                        label="Delivery State"
                                         fullWidth
                                         autoComplete=""
                                         variant='filled'
@@ -75,7 +90,7 @@ const AddProduct = () => {
                             <br></br>
                             <Grid container spacing={3}>
                                 <Grid xs={5} style={{ marginLeft: '50px' }}>
-                                    <Button style={{ backgroundColor: '#C1F10B', height: '65px' }} >SAVE NEW PRODUCT</Button>
+                                    <Button style={{ backgroundColor: '#C1F10B', height: '65px' }} >SAVE NEW ORDER</Button>
                                 </Grid>
                             </Grid>
                         </div>

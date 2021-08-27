@@ -10,7 +10,7 @@ export default function AddDefaultProduct() {
         <Grid item xs={9} style={{ marginLeft: '170px' }}>
             <h1>STOCK TRACK</h1>
             <Paper elevation={10} style={{ padding: 20, height: 'auto', width: 'auto' }} >
-                <div style={{ height: 500, width: '100%' }}>
+                <div style={{ height: 300, width: '100%' }}>
                     <Typography variant="h6" gutterBottom>
                         Add New Default Product
                     </Typography>
@@ -24,21 +24,6 @@ export default function AddDefaultProduct() {
                                         id="productName"
                                         name="Product Name"
                                         label="Product Name"
-                                        fullWidth
-                                        autoComplete=""
-                                        variant='filled'
-                                    />
-                                </Grid>
-                            </Grid>
-                            <br></br>
-                            <br></br>
-                            <Grid container spacing={3}>
-                                <Grid item xs={7}>
-                                    <TextField
-                                        required
-                                        id="unitPrice"
-                                        name="Unit Price"
-                                        label="Unit Price"
                                         fullWidth
                                         autoComplete=""
                                         variant='filled'
