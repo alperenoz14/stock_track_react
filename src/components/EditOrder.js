@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import { useParams } from 'react-router';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
-const EditProduct = () => {
+const EditOrder = () => {
 
     const param = useParams()
     console.log(param)
@@ -26,7 +26,7 @@ const EditProduct = () => {
             <Paper elevation={10} style={{ padding: 20, height: 'auto', width: 'auto' }} >
                 <div style={{ height: 600, width: '100%' }}>
                     <Typography variant="h6" gutterBottom>
-                        Edit Product İnformations
+                        Edit Order İnformations
                     </Typography>
                     <br></br>
                     <form>
@@ -123,4 +123,4 @@ const EditProduct = () => {
     );
 }
 
-export default EditProduct
+export default EditOrder

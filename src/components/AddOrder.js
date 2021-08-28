@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import { useParams } from 'react-router';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
-const AddProduct = () => {
+const AddOrder = () => {
 
     const handleInput = (e) =>{       
         console.log(e.target.textContent)
@@ -21,7 +21,7 @@ const AddProduct = () => {
         <Grid item xs={9} style={{ marginLeft: '170px' }}>
             <h1>STOCK TRACK</h1>
             <Paper elevation={10} style={{ padding: 20, height: 'auto', width: 'auto' }} >
-                <div style={{ height: 500, width: '100%' }}>
+                <div style={{ height: 600, width: '100%' }}>
                     <Typography variant="h6" gutterBottom>
                         Add New Order
                     </Typography>
@@ -38,6 +38,21 @@ const AddProduct = () => {
                                         onChange={e => handleInput(e)}
                                         style={{ width: 300 }}
                                         renderInput={(params) => <TextField {...params} required label="Select Product" variant="outlined" />}
+                                    />
+                                </Grid>
+                            </Grid>
+                            <br></br>
+                            <br></br>
+                            <Grid container spacing={3}>
+                                <Grid item xs={7}>
+                                    <TextField
+                                        required
+                                        id="unitPrice"
+                                        name="Unit Price"
+                                        label="Unit Price"
+                                        fullWidth
+                                        autoComplete=""
+                                        variant='filled'
                                     />
                                 </Grid>
                             </Grid>
@@ -103,4 +118,4 @@ const AddProduct = () => {
     );
 }
 
-export default AddProduct
+export default AddOrder

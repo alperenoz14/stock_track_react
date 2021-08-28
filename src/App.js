@@ -1,18 +1,19 @@
 import './App.css';
 import { useState,useEffect } from 'react';
 import PlantTable from './components/PlantTable';
-import PlantDetail from './pages/PlantDetail'
-import EditProduct from './pages/EditProduct'
-import AddProduct from './pages/AddProduct'
-import AddDefaultProduct from './pages/AddDefaultProduct'
+import PlantDetail from './components/PlantDetail'
+import EditOrder from './components/EditOrder'
+import AddOrder from './components/AddOrder'
+import AddDefaultProduct from './components/AddDefaultProduct'
 import { Button, FormControlLabel, IconButton } from "@material-ui/core";
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom'
 
 
 const App = () => {
 
+
   const columns = [
-    { field: 'plantId', headerName: 'ID', width: 120 },
+    { field: 'plantId', headerName: 'PlantId', width: 130 },
     { field: 'name', headerName: 'Plant Name', width: 230, },
     { field: 'eic', headerName: 'EIC', width: 170, },
     { field: 'organizationETSOCode', width: 200, headerName: 'Organization ETSO', },
@@ -36,27 +37,23 @@ const App = () => {
     },
   ]
 
-
-
-
   const Detail = (index) => {
-
     return (
       <Button href={`/PlantDetail/${index}`} style={{ backgroundColor: 'lightgreen' }}>Plant Detail</Button>
     );
   };
 
+
   const [cols,setColumns] = useState(columns)
   const [rows, setRows] = useState([])
 
+
   useEffect(() => {
-
     getPlants()
-
   }, [])
 
   const getPlants= () =>{
-       fetch('https://localhost:44399/api/plant',{
+       fetch('https://localhost:44399/api/plant',{    //in sync ops, get datas from mysql and use postPlants.
         method:'GET',
         headers:{
           'Content-Type':'application/json'
@@ -65,27 +62,29 @@ const App = () => {
       .then(resultJson => {
         setRows(resultJson)
       })
-  }
+    }
 
-  // const postPlants=(plants) =>{
-  //   var resultData = []
-  //   plants.map((plant)=>{
-  //     const resultPlant ={
-  //       plantId:plant.id,
-  //       name:plant.name,
-  //       eic:plant.eic,
-  //       organizationETSOCode:plant.organizationETSOCode
+    
+
+  // const postPlants=(response) =>{
+  //   var plants = []
+  //   response.map((item)=>{
+  //     const plant ={
+  //       plantId:item.id,
+  //       name:item.name,
+  //       eic:item.eic,
+  //       organizationETSOCode:item.organizationETSOCode
   //     }
-  //       resultData.push(resultPlant)
+  //     plants.push(plant)
   //   })
 
-    //console.log(resultData)
+  //   //console.log(plants)
   //   fetch('https://localhost:44399/api/plant',{
   //     method:'POST',
   //     headers:{
   //       'Content-Type':'application/json'
   //     },
-  //     body:JSON.stringify(resultData)
+  //     body:JSON.stringify(plants)
   //   }).then(res =>res.json())
   //   .then(resultJson => console.log(resultJson))
 
@@ -97,9 +96,9 @@ const App = () => {
   return (
     <div className="App">
       <Route exact path="/" component={() => <PlantTable rows={rows} columns={cols} />} />
-      <Route exact path="/PlantDetail/:id" component={() => <PlantDetail />} />
-      <Route exact path="/Edit/:productId" component={() => <EditProduct />} />
-      <Route exact path="/Add" component={() => <AddProduct />} />
+      <Route exact path="/PlantDetail/:plantId" component={() => <PlantDetail />} />
+      <Route exact path="/Edit/:productId" component={() => <EditOrder />} />
+      <Route exact path="/Add" component={() => <AddOrder />} />
       <Route exact path="/AddDefaultProduct" component={() => <AddDefaultProduct />} />
     </div>
   );
