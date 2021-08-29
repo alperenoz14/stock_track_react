@@ -72,7 +72,6 @@ export default function PlantDetail() {
     }, [])
 
     return (
-
         <Grid item xs={9} style={{ marginLeft: '170px' }}>
             <h1>STOCK TRACK</h1>
             <Card className={classes.root} style={{ backgroundColor: '#D7D7D7' }}>
@@ -130,7 +129,7 @@ export default function PlantDetail() {
                         onRowsPerPageChange={handleChangeRowsPerPage}
                     />
                 </div>
-                <Button href="/Add" style={{ backgroundColor: '#4BD025', width: '150px', height: '50px' }}>Add New Order to Plant</Button>
+                <Button href={`/Add/${param.plantId}`} style={{ backgroundColor: '#4BD025', width: '150px', height: '50px' }}>Add New Order to Plant</Button>
             </Paper>
         </Grid>
 
