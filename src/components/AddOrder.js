@@ -69,7 +69,7 @@ const AddOrder = () => {
             body:JSON.stringify(Order)
         }).then(res => res.json())
         .then(setRedirect(true))
-        .then(toast.success("New Order Added Successfully !",{position: toast.POSITION.TOP_RIGHT}))
+        .then(toast.success("New Order has been Added Successfully !",{position: toast.POSITION.TOP_RIGHT}))
         // .catch(toast.error("Add Order operation is failed  !",{position: toast.POSITION.TOP_RIGHT}))
     }
 

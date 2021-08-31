@@ -63,7 +63,7 @@ const EditOrder = () => {
             body:JSON.stringify(updatedOrder)
         }).then(res => res.json())
         .then(setRedirect(true))
-        .then(toast.success("The Order Updated Successfully !",{position: toast.POSITION.TOP_RIGHT}))
+        .then(toast.success("The Order has been Updated Successfully !",{position: toast.POSITION.TOP_RIGHT}))
     }
 
     useEffect(async () => {

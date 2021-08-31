@@ -11,12 +11,13 @@ import TableRow from '@material-ui/core/TableRow';
 import { Button, Grid } from '@material-ui/core'
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import RemoveOrderConfirm from './RemoveOrderConfirm'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const useStyles = makeStyles({
@@ -47,6 +48,18 @@ export default function PlantDetail() {
         }).then(res => res.json())
 
         return result
+    }
+
+    const deleteRequest = async (orderId) => {
+        // console.log(orderId)
+        const URL = `https://localhost:44399/api/order/${orderId}`
+        await fetch(URL, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(toast.success("The Order has been removed Successfully !", { position: toast.POSITION.TOP_RIGHT }))
+        .then(setOrders(await configureOrders()))
     }
 
     const configureOrders = async () => {
@@ -112,7 +125,7 @@ export default function PlantDetail() {
                                             <TableCell>{order.deliveryCompany}</TableCell>
                                             <TableCell>{order.deliveryState}</TableCell>
                                             <TableCell><Button href={`/Edit/${order.id}`} style={{ backgroundColor: '#E7E41E' }}>EDIT</Button></TableCell>
-                                            <TableCell><Button style={{ backgroundColor: '#F1320B' }}>DELETE</Button></TableCell>
+                                            <TableCell><RemoveOrderConfirm plantId={param.plantId} orderId={order.id} deleteRequest={deleteRequest} /></TableCell>
                                         </TableRow>
                                     );
                                 })}
