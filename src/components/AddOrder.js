@@ -20,7 +20,7 @@ const AddOrder = () => {
 
     toast.configure()
 
-    const handleInputs = async (type, value) => {
+    const handleInputs = async (type, value) => {       //bu metodu kaldırıp direkt onchange olduğunda değişkene atasam?
         switch (type) {
             case 'product': productId = value
                 break;
@@ -70,7 +70,7 @@ const AddOrder = () => {
         }).then(res => res.json())
         .then(setRedirect(true))
         .then(toast.success("New Order Added Successfully !",{position: toast.POSITION.TOP_RIGHT}))
-        .catch(toast.error("Add Order operation is failed  !",{position: toast.POSITION.TOP_RIGHT}))
+        // .catch(toast.error("Add Order operation is failed  !",{position: toast.POSITION.TOP_RIGHT}))
     }
 
     useEffect(async () => {

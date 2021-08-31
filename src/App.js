@@ -97,7 +97,7 @@ const App = () => {
     <div className="App">
       <Route exact path="/" component={() => <PlantTable rows={rows} columns={cols} />} />
       <Route exact path="/PlantDetail/:plantId" component={() => <PlantDetail />} />
-      <Route exact path="/Edit/:productId" component={() => <EditOrder />} />
+      <Route exact path="/Edit/:orderId" component={() => <EditOrder />} />
       <Route exact path="/Add/:plantId" component={() => <AddOrder />} />
       <Route exact path="/AddDefaultProduct" component={() => <AddDefaultProduct />} />
     </div>
