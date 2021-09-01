@@ -8,7 +8,6 @@ import AddDefaultProduct from './components/AddDefaultProduct'
 import { Button, FormControlLabel, IconButton } from "@material-ui/core";
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom'
 
-
 const App = () => {
 
 

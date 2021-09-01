@@ -20,7 +20,6 @@ const EditOrder = () => {
 
     const param = useParams()
     const orderId = param.orderId
-    console.log(orderId)
 
     const handleSubmit = async (e) =>{
         e.preventDefault()
@@ -110,7 +109,7 @@ const EditOrder = () => {
                                         onChange={e => setCurrentOrder({ ...currentOrder, unitPrice: e.target.value })}
                                         id="unitPrice"
                                         name="Unit Price"
-                                        label="Unit Price"
+                                        //label="Unit Price"
                                         fullWidth
                                         autoComplete=""
                                         variant='filled'
