@@ -88,7 +88,7 @@ const AddOrder = () => {
         }).then(res => res.json())
             .then(setTimeout(async () => {
                 await setRedirect(true)
-            }, 500))
+            }, 600))
             .then(toast.success("New Order has been Added Successfully !", { position: toast.POSITION.TOP_RIGHT }))
     }
 
@@ -193,7 +193,7 @@ const AddOrder = () => {
                                     <Grid item xs={7}>
                                         <TextField
                                             onChange={e => handleInputs(e.target.id, e.target.value)}
-
+                                            InputLabelProps={{shrink:true}}
                                             id="deliveryDate"
                                             //name="Delivery Date"
                                             label="Delivery Date"
