@@ -4,6 +4,7 @@ import PlantTable from './components/PlantTable';
 import PlantDetail from './components/PlantDetail'
 import EditOrder from './components/EditOrder'
 import AddOrder from './components/AddOrder'
+import Login from './components/Login'
 import AddDefaultProduct from './components/AddDefaultProduct'
 import { Button, FormControlLabel, IconButton } from "@material-ui/core";
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom'
@@ -51,14 +52,14 @@ const App = () => {
     getPlants()
   }, [])
 
-  const getPlants= () =>{
-       fetch('https://localhost:44399/api/plant',{    //in sync ops, get datas from mysql and use postPlants.
+  const getPlants= async () =>{
+       await fetch('https://localhost:44399/api/plant',{    //in sync ops, get datas from mysql and use postPlants.
         method:'GET',
         headers:{
           'Content-Type':'application/json'
         }
-      }).then(res => res.json())
-      .then(resultJson => {
+      }).then(async res =>await res.json())
+      .then( resultJson => {
         setRows(resultJson)
       })
     }
@@ -99,6 +100,7 @@ const App = () => {
       <Route exact path="/Edit/:orderId" component={() => <EditOrder />} />
       <Route exact path="/Add/:plantId" component={() => <AddOrder />} />
       <Route exact path="/AddDefaultProduct" component={() => <AddDefaultProduct />} />
+      <Route exact path="/Login" component={() => <Login />} />
     </div>
   );
 }
