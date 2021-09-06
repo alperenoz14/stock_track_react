@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,6 +12,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Redirect } from 'react-router-dom';
 
 function Copyright() {
   return (
@@ -46,22 +49,59 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
-  const classes = useStyles();
+export default function Login(props) {
 
+  toast.configure()
+
+  const classes = useStyles();
+  const [userName, setUserName] = useState("")
+  const [password, setPassword] = useState("")
+  const [redirect, setRedirect] = useState(false)
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    await loginRequest()
+  }
+
+  const loginRequest = async () => {
+    const URL = 'http://localhost:60925/api/User/Login'
+
+    const user = { 'Name': userName, 'Password': password }
+
+    await fetch(URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include',
+      body: JSON.stringify(user)
+    }).then(res => res.json())
+      .then(resultJson => {
+        if (resultJson.message == 'Invalid Credentials') {
+          toast.error("User Name or Password is invalid !", { position: toast.POSITION.TOP_RIGHT })
+        } else {
+          props.isAuthorized()
+          setRedirect(true)
+        }
+      })
+  }
+
+  if (redirect) { return <Redirect to={`/Plants`} /> }
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-          <h1>Stock Track</h1>
+        <h1>Stock Track</h1>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={e => handleSubmit(e)}>
           <TextField
+            onChange={e => setUserName(e.target.value)}
             variant="outlined"
             margin="normal"
             required
@@ -73,6 +113,7 @@ export default function SignIn() {
             autoFocus
           />
           <TextField
+            onChange={e => setPassword(e.target.value)}
             variant="outlined"
             margin="normal"
             required

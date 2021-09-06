@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, TextField, FormControlLabel, Checkbox, Paper, Button } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography';
@@ -11,9 +11,11 @@ import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import HomeIcon from '@material-ui/icons/Home';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import NavBar from './NavBar'
+import ErrorPage from './ErrorPage';
 
 
-export default function AddDefaultProduct() {
+export default function AddDefaultProduct(props) {
 
     const usebreadCrumbStyles = makeStyles((theme) => ({
         link: {
@@ -30,6 +32,7 @@ export default function AddDefaultProduct() {
     toast.configure()
     const [redirect, setRedirect] = useState(false)
     const [newProductName, setnewProductName] = useState('')
+    const [isAuthorized, setIsAuthorized] = useState(false)
 
     const handleChange = async (e) => {
         e.preventDefault()
@@ -42,11 +45,23 @@ export default function AddDefaultProduct() {
         await postRequest(product)
     }
 
+    useEffect(async () => {
+
+        if (props.user.name === undefined) {
+            console.log(props)
+            setIsAuthorized(false)
+        } else {
+            setIsAuthorized(true)
+        }
+
+    }, [])
+
     const postRequest = async (newProduct) => {
 
-        const URL = 'https://localhost:44399/api/product'
+        const URL = 'http://localhost:60925/api/product'
         await fetch(URL, {
             method: 'POST',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -56,11 +71,13 @@ export default function AddDefaultProduct() {
             .then(toast.success("New Product product has beed added Successfully !", { position: toast.POSITION.TOP_RIGHT }))
     }
 
+    if (!isAuthorized) { return <ErrorPage user={props.user} /> }
     if (redirect) { return <Redirect to={`/`} /> }
     return (
         <div>
+            <NavBar user={props.user} />
             <Breadcrumbs aria-label="breadcrumb" style={{ marginTop: '25px' }}>
-                <Link color="inherit" href="/" className={breadCrumbclasses.link}>
+                <Link color="inherit" href="/Plants" className={breadCrumbclasses.link}>
                     <HomeIcon className={breadCrumbclasses.icon} />
                     Home
                 </Link>

@@ -1,5 +1,5 @@
 import './App.css';
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import PlantTable from './components/PlantTable';
 import PlantDetail from './components/PlantDetail'
 import EditOrder from './components/EditOrder'
@@ -43,64 +43,42 @@ const App = () => {
     );
   };
 
+  const [user, setUser] = useState({})
+  // const [cols,setColumns] = useState(columns)
+  // const [rows, setRows] = useState([])
 
-  const [cols,setColumns] = useState(columns)
-  const [rows, setRows] = useState([])
 
 
   useEffect(() => {
-    getPlants()
+
+    isAuthorized()
+
   }, [])
 
-  const getPlants= async () =>{
-       await fetch('https://localhost:44399/api/plant',{    //in sync ops, get datas from mysql and use postPlants.
-        method:'GET',
-        headers:{
-          'Content-Type':'application/json'
-        }
-      }).then(async res =>await res.json())
-      .then( resultJson => {
-        setRows(resultJson)
-      })
-    }
+  const isAuthorized = async () => {
+    console.log('in')
+    const URL = 'http://localhost:60925/api/user'
+    const user = await fetch(URL, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Credentials': 'true'
+      },
+      credentials: 'include',
+    }).then(res => res.json())
 
-    
+    setUser(user)
+  }
 
-  // const postPlants=(response) =>{
-  //   var plants = []
-  //   response.map((item)=>{
-  //     const plant ={
-  //       plantId:item.id,
-  //       name:item.name,
-  //       eic:item.eic,
-  //       organizationETSOCode:item.organizationETSOCode
-  //     }
-  //     plants.push(plant)
-  //   })
-
-  //   //console.log(plants)
-  //   fetch('https://localhost:44399/api/plant',{
-  //     method:'POST',
-  //     headers:{
-  //       'Content-Type':'application/json'
-  //     },
-  //     body:JSON.stringify(plants)
-  //   }).then(res =>res.json())
-  //   .then(resultJson => console.log(resultJson))
-
-
-  //   // console.log(rows)
-  // }
-  
 
   return (
     <div className="App">
-      <Route exact path="/" component={() => <PlantTable rows={rows} columns={cols} />} />
-      <Route exact path="/PlantDetail/:plantId" component={() => <PlantDetail />} />
-      <Route exact path="/Edit/:orderId" component={() => <EditOrder />} />
-      <Route exact path="/Add/:plantId" component={() => <AddOrder />} />
-      <Route exact path="/AddDefaultProduct" component={() => <AddDefaultProduct />} />
-      <Route exact path="/Login" component={() => <Login />} />
+      <Route exact path="/" component={() => <Login isAuthorized = {isAuthorized} />} />
+      <Route exact path="/Plants" component={() => <PlantTable columns={columns} user = {user} isAuthorized ={isAuthorized} />} />
+      <Route exact path="/PlantDetail/:plantId" component={() => <PlantDetail user = {user} isAuthorized ={isAuthorized} />} />
+      <Route exact path="/Edit/:orderId" component={() => <EditOrder user = {user} isAuthorized ={isAuthorized} />} />
+      <Route exact path="/Add/:plantId" component={() => <AddOrder user = {user} isAuthorized ={isAuthorized} />} />
+      <Route exact path="/AddDefaultProduct" component={() => <AddDefaultProduct user = {user} isAuthorized ={isAuthorized} />} />
     </div>
   );
 }

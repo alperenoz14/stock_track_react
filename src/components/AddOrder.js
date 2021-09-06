@@ -14,8 +14,10 @@ import Link from '@material-ui/core/Link';
 import HomeIcon from '@material-ui/icons/Home';
 import ListIcon from '@material-ui/icons/List';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import NavBar from './NavBar'
+import ErrorPage from './ErrorPage';
 
-const AddOrder = () => {
+const AddOrder = (props) => {
 
     var productId, unitPrice, deliveryCompany, deliveryState, deliveryDate, newOrder = {}
 
@@ -23,6 +25,7 @@ const AddOrder = () => {
     const plantId = param.plantId
     const [products, setProducts] = useState([])
     const [redirect, setRedirect] = useState(false)
+    const [isAuthorized,setIsAuthorized] = useState(false)
 
     const usebreadCrumbStyles = makeStyles((theme) => ({
         link: {
@@ -64,10 +67,11 @@ const AddOrder = () => {
 
 
     const getRequest = async (apiRoute, id) => {
-        const baseUrl = 'https://localhost:44399/api/'
+        const baseUrl = 'http://localhost:60925/api/'
         const URL = baseUrl + apiRoute + id
         const result = await fetch(URL, {
             method: 'GET',
+            credentials:'include',
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -78,9 +82,10 @@ const AddOrder = () => {
 
     const postRequest = async (Order) => {
         // console.log(Order)
-        const URL = 'https://localhost:44399/api/order'
+        const URL = 'http://localhost:60925/api/order'
         await fetch(URL, {
             method: 'POST',
+            credentials:'include',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -94,16 +99,22 @@ const AddOrder = () => {
 
     useEffect(async () => {
 
-        setProducts(await getRequest("product", ""))
+        if (props.user.name === undefined) {
+            setIsAuthorized(false)
+        } else {
+            setIsAuthorized(true)
+            setProducts(await getRequest("product", ""))
+        }
 
     }, [])
 
-
+    if (!isAuthorized) { return <ErrorPage user={props.user} /> }
     if (redirect) { return <Redirect to={`/PlantDetail/${plantId}`} /> }
     return (
         <div>
+            <NavBar user = {props.user}/>
             <Breadcrumbs aria-label="breadcrumb" style={{ marginTop: '25px' }}>
-                <Link color="inherit" href="/"className={breadCrumbclasses.link}>
+                <Link color="inherit" href="/Plants"className={breadCrumbclasses.link}>
                     <HomeIcon className={breadCrumbclasses.icon} />
                     Home
                 </Link>

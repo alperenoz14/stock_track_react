@@ -23,6 +23,8 @@ import Link from '@material-ui/core/Link';
 import HomeIcon from '@material-ui/icons/Home';
 import GrainIcon from '@material-ui/icons/Grain';
 import ListIcon from '@material-ui/icons/List';
+import NavBar from './NavBar'
+import ErrorPage from './ErrorPage';
 
 
 const useStyles = makeStyles({
@@ -40,7 +42,7 @@ const usebreadCrumbStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function PlantDetail() {
+export default function PlantDetail(props) {
     const classes = useStyles();
     const breadcrumbClasses = usebreadCrumbStyles();
 
@@ -49,6 +51,7 @@ export default function PlantDetail() {
 
     const [plant, setPlant] = useState({})
     const [orders, setOrders] = useState([])
+    const[isAuthorized,setIsAuthorized] = useState(false)
 
     const handleChangePage = (event, newPage) => { setPage(newPage); };
     const handleChangeRowsPerPage = (event) => { setRowsPerPage(+event.target.value); setPage(0); };
@@ -57,7 +60,8 @@ export default function PlantDetail() {
 
 
     const getRequest = async (apiRoute, id) => {
-        const baseUrl = 'https://localhost:44399/api/'
+
+        const baseUrl = 'http://localhost:60925/api/'
         const URL = baseUrl + apiRoute + id
         const result = await fetch(URL, {
             method: 'GET',
@@ -71,7 +75,7 @@ export default function PlantDetail() {
 
     const deleteRequest = async (orderId) => {
         // console.log(orderId)
-        const URL = `https://localhost:44399/api/order/${orderId}`
+        const URL = `http://localhost:60925/api/order/${orderId}`
         await fetch(URL, {
             method: 'DELETE',
             headers: {
@@ -101,14 +105,23 @@ export default function PlantDetail() {
 
 
     useEffect(async () => {
+
+        if (props.user.name === undefined) {
+            setIsAuthorized(false)
+        } else {
+            setIsAuthorized(true)
+        }
+
         setPlant(await getRequest("plant/", param.plantId))
         setOrders(await configureOrders())
     }, [])
 
+    if (!isAuthorized) { return <ErrorPage user={props.user} /> }
     return (
         <div>
+            <NavBar user = {props.user} />
             <Breadcrumbs aria-label="breadcrumb" style={{ marginTop: '25px' }}>
-                <Link color="inherit" href="/" className={breadcrumbClasses.link}>
+                <Link color="inherit" href="/Plants" className={breadcrumbClasses.link}>
                     <HomeIcon className={breadcrumbClasses.icon} />
                     Home
                 </Link>
