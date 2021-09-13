@@ -41,7 +41,7 @@ const AddOrder = (props) => {
 
     toast.configure()
 
-    const handleInputs = async (type, value) => {       //bu metodu kaldırıp direkt onchange olduğunda değişkene atasam?
+    const handleInputs = async (type, value) => {       //bu metodu kaldırıp direkt onchange olduğunda değişkene atasam? (editOrder'daki gibi)
         switch (type) {
             case 'product': productId = value
                 break;
@@ -206,12 +206,9 @@ const AddOrder = (props) => {
                                             onChange={e => handleInputs(e.target.id, e.target.value)}
                                             InputLabelProps={{shrink:true}}
                                             id="deliveryDate"
-                                            //name="Delivery Date"
                                             label="Delivery Date"
                                             type="date"
-                                            // defaultValue="2017-05-24"
                                             fullWidth
-                                            //autoComplete=""
                                             variant='filled'
                                         />
                                     </Grid>
